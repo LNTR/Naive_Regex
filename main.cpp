@@ -1,41 +1,104 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
-string pattern = "ababaca";
+string pattern;
 
-string text = "bacbababaabcbab";
+string text;
 
-int prefixFuncton[7];
+vector<int> positionVector;
 
-void initializePrefixFunction()
-{
-    prefixFuncton[0] = 0;
+int getPatternLetterCount(string pattern);
+void writeToTextFile();
 
-    int k = 0;
-
-    for (int q = 1; q < pattern.length(); q++)
-    {
-        while ((k > 0) && (pattern[k] != pattern[q]))
-        {
-            k = prefixFuncton[k];
-        }
-
-        if (pattern[k] == pattern[q])
-        {
-            k++;
-        }
-        prefixFuncton[q] = k;
-    }
-}
+ifstream PatternFile("./test/pattern2.txt");
+ifstream TextFile("./test/text2.txt");
+ofstream PatternTextFile("./out/patterntext2_output.txt");
 
 main(int, char **)
 {
-    initializePrefixFunction();
-    for (auto value : prefixFuncton)
+    PatternFile >> pattern;
+    TextFile >> text;
+    int patternCharacterCount = getPatternLetterCount(pattern);
+
+    for (int textIndex = 0; textIndex < text.length() - patternCharacterCount + 1; textIndex++)
     {
-        cout << value << "\n";
+        int patternIndex = 0;
+        int symbolCount = 0;
+
+        while (patternIndex < pattern.length())
+        {
+
+            if (pattern[patternIndex] == '^')
+            {
+                if (textIndex == 0)
+                {
+                    patternIndex++;
+                    symbolCount++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            else if (pattern[patternIndex] == '$')
+            {
+                if (textIndex + patternIndex - symbolCount == text.length())
+                {
+                    patternIndex++;
+                    symbolCount++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            else if ((pattern[patternIndex] == text[textIndex + patternIndex - symbolCount]) || ((pattern[patternIndex] == '.')))
+            {
+                patternIndex++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        if (patternIndex == pattern.length())
+        {
+            positionVector.push_back(textIndex);
+        }
     }
+    writeToTextFile();
+}
+
+int getPatternLetterCount(string pattern)
+{
+    int count = 0;
+    for (auto character : pattern)
+    {
+        if (!((character == '$') || (character == '^')))
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
+void writeToTextFile()
+{
+    if (positionVector.size() == 0)
+    {
+        PatternTextFile << "Not Found";
+    }
+    for (int positon : positionVector)
+    {
+        PatternTextFile << positon << "\n"
+                        << endl;
+    }
+    PatternTextFile.close();
 }
