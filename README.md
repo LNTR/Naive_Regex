@@ -4,7 +4,7 @@ DSA 3 Assignment 01 - matching regular expressions using naive string matching a
 
 ## Justification
 
-Since Naive approach is the easiest to implement, I have used it for the assignment over the others. Another reason why I picked this is because we can introduce new types of regex symbols to program easily without having to modify compared to other algorithms(KMP and RK algorithms requires complex procedures to handle new symbols because we have to modify their prefix function)
+Since Naive approach is the easiest to implement, I have used it for the assignment over the others. Another reason why I picked this is because we can introduce new types of regex symbols to program easily without having to modify the source code compared to other algorithms(KMP and RK algorithms requires complex procedures to handle new symbols because we have to modify their prefix function)
 
 ## Pattern Matching
 
