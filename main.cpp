@@ -13,31 +13,55 @@ vector<int> positionVector;
 
 int getPatternLetterCount(string pattern);
 void writeToTextFile();
-
-ifstream PatternFile("./test/pattern2.txt");
-ifstream TextFile("./test/text2.txt");
-ofstream PatternTextFile("./out/patterntext2_output.txt");
+string readTextFromFile(ifstream &File);
+ifstream PatternFile("./test/pattern6.txt");
+ifstream TextFile("./test/text6.txt");
+ofstream PatternTextFile("./out/patterntext6_output.txt");
 
 main(int, char **)
 {
-    PatternFile >> pattern;
-    TextFile >> text;
+    pattern = readTextFromFile(PatternFile);
+    text = readTextFromFile(TextFile);
     int patternCharacterCount = getPatternLetterCount(pattern);
 
-    for (int textIndex = 0; textIndex < text.length() - patternCharacterCount + 1; textIndex++)
+    if (patternCharacterCount <= text.length())
     {
-        int patternIndex = 0;
-        int symbolCount = 0;
-
-        while (patternIndex < pattern.length())
+        for (int textIndex = 0; textIndex < text.length() - patternCharacterCount + 1; textIndex++)
         {
+            int patternIndex = 0;
+            int symbolCount = 0;
 
-            if (pattern[patternIndex] == '^')
+            while (patternIndex < pattern.length())
             {
-                if (textIndex == 0)
+
+                if (pattern[patternIndex] == '^')
+                {
+                    if (textIndex == 0)
+                    {
+                        patternIndex++;
+                        symbolCount++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                else if (pattern[patternIndex] == '$')
+                {
+                    if (textIndex + patternIndex - symbolCount == text.length())
+                    {
+                        patternIndex++;
+                        symbolCount++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else if ((pattern[patternIndex] == text[textIndex + patternIndex - symbolCount]) || ((pattern[patternIndex] == '.')))
                 {
                     patternIndex++;
-                    symbolCount++;
                 }
                 else
                 {
@@ -45,32 +69,10 @@ main(int, char **)
                 }
             }
 
-            else if (pattern[patternIndex] == '$')
+            if (patternIndex == pattern.length())
             {
-                if (textIndex + patternIndex - symbolCount == text.length())
-                {
-                    patternIndex++;
-                    symbolCount++;
-                }
-                else
-                {
-                    break;
-                }
+                positionVector.push_back(textIndex);
             }
-
-            else if ((pattern[patternIndex] == text[textIndex + patternIndex - symbolCount]) || ((pattern[patternIndex] == '.')))
-            {
-                patternIndex++;
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        if (patternIndex == pattern.length())
-        {
-            positionVector.push_back(textIndex);
         }
     }
     writeToTextFile();
@@ -87,6 +89,14 @@ int getPatternLetterCount(string pattern)
         }
     }
     return count;
+}
+
+string readTextFromFile(ifstream &File)
+{
+    string text;
+    while (getline(File, text))
+        ;
+    return text;
 }
 
 void writeToTextFile()

@@ -4,7 +4,7 @@ DSA 3 Assignment 01 - matching regular expressions using naive string matching a
 
 ## Justification
 
-Since Naive approach is easy to implement, I have used it for the assignment.
+Since Naive approach is the easiest to implement, I have used it for the assignment over the others. Another reason why I picked this is because we can introduce new types of regex symbols to program easily without having to modify compared to other algorithms(KMP and RK algorithms requires complex procedures to handle new symbols because we have to modify their prefix function)
 
 ## Pattern Matching
 
@@ -63,7 +63,3 @@ Test cases are stored in **test** folder. The relevent text for patter**n**.txt 
 ## Dependencies
 
 This program does not have any external dependencies. It only uses standard C++ libraries such as iostream, string, vector, and fstream.
-
-## License
-
-This program is licensed under the MIT License.
