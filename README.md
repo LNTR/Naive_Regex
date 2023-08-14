@@ -2,7 +2,7 @@
 
 DSA 3 Assignment 01 - matching regular expressions using naive string matching algorithm
 
-Pattern Matching
+##Pattern Matching
 This is a C++ program that reads a pattern and a text from two files, and finds the positions in the text where the pattern matches. The pattern can contain special symbols like ^, $, and . that have different meanings.
 
 Features
