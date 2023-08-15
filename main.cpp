@@ -14,9 +14,9 @@ vector<int> positionVector;
 int getPatternLetterCount(string pattern);
 void writeToTextFile();
 string readTextFromFile(ifstream &File);
-ifstream PatternFile("./test/pattern6.txt");
-ifstream TextFile("./test/text6.txt");
-ofstream PatternTextFile("./out/patterntext6_output.txt");
+ifstream PatternFile("./test/pattern1.txt");
+ifstream TextFile("./test/text1.txt");
+ofstream PatternTextFile("./out/patterntext1_output.txt");
 
 main(int, char **)
 {
