@@ -31,7 +31,7 @@ To use this program, you need to have two files: one for the pattern and one for
 ### text1.txt:
 
 ```
-abcab
+abb
 ```
 
 The program will read these files and find the positions in the text where the pattern matches. The output will be written to another file named patterntext1.output, which will be placed in the out folder. The output file will contain one line for each matching position, followed by an empty line. For example:
@@ -40,8 +40,6 @@ The program will read these files and find the positions in the text where the p
 
 ```
 0
-
-3
 ```
 
 This means that the pattern matches at positions 0 and 3 in the text.
